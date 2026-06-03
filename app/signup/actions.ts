@@ -6,6 +6,9 @@ import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/db';
 
 const MIN_PASSWORD_LENGTH = 8;
+const MAX_EMAIL_LENGTH = 254; // Ограничение длины email по RFC 5321.
+// ReDoS невозможен: регулярка применяется только после проверки MAX_EMAIL_LENGTH.
+// eslint-disable-next-line sonarjs/slow-regex
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export type SignupState = {
@@ -24,7 +27,7 @@ export async function signupAction(
     return { error: 'Введите email' };
   }
 
-  if (!EMAIL_REGEX.test(email)) {
+  if (email.length > MAX_EMAIL_LENGTH || !EMAIL_REGEX.test(email)) {
     return { error: 'Некорректный формат email' };
   }
 
