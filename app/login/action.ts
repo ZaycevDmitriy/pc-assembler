@@ -1,5 +1,6 @@
 'use server';
 import { redirect } from 'next/navigation';
+import { AuthError } from 'next-auth';
 
 import { signIn } from '@/auth';
 
@@ -23,7 +24,14 @@ export const loginAction = async (
       redirectTo: '/dashboard',
     });
     redirect(`/dashboard`);
-  } catch {
-    return { error: 'Неверный email или пароль' };
+  } catch (error) {
+    console.log(error);
+    if (error instanceof AuthError) {
+      if (error.type === 'CredentialsSignin') {
+        return { error: 'Неверный email или пароль' };
+      }
+      return { error: 'Ошибка авторизации' };
+    }
+    throw error;
   }
 };
