@@ -1,25 +1,16 @@
-"use client"
+'use client';
 
-import { signupAction, SignupState } from "@/app/signup/actions"
-import ErrorMessage from "@/components/error-message"
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle
-} from "@/components/ui/card"
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
-import { useActionState } from "react"
+import { useActionState } from 'react';
+
+import { signupAction, SignupState } from '@/app/signup/actions';
+import ErrorMessage from '@/components/error-message';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
 
 export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
-const [state, formAction] = useActionState<SignupState | null, FormData>(signupAction, null)
+  const [state, formAction] = useActionState<SignupState | null, FormData>(signupAction, null);
 
   return (
     <Card {...props}>
@@ -46,13 +37,9 @@ const [state, formAction] = useActionState<SignupState | null, FormData>(signupA
             <Field>
               <FieldLabel htmlFor="password">Пароль</FieldLabel>
               <Input id="password" name="password" type="password" required />
-              <FieldDescription>
-                Пароль должен содержать не менее 8 символов.
-              </FieldDescription>
+              <FieldDescription>Пароль должен содержать не менее 8 символов.</FieldDescription>
             </Field>
-            {
-              state?.error && <ErrorMessage message={state.error} />
-            }
+            {state?.error && <ErrorMessage message={state.error} />}
             <FieldGroup>
               <Field>
                 <Button type="submit">Создать аккаунт</Button>
@@ -65,5 +52,5 @@ const [state, formAction] = useActionState<SignupState | null, FormData>(signupA
         </form>
       </CardContent>
     </Card>
-  )
+  );
 }
