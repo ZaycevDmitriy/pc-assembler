@@ -25,7 +25,6 @@ export const loginAction = async (
     });
     redirect(`/dashboard`);
   } catch (error) {
-    console.log(error);
     if (error instanceof AuthError) {
       if (error.type === 'CredentialsSignin') {
         return { error: 'Неверный email или пароль' };
