@@ -53,18 +53,16 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   },
   callbacks: {
     jwt({ token, user }) {
-      if (user) {
+      // user определён только при входе; на последующих запросах он undefined.
+      if (user?.id) {
         token.id = user.id;
-        token.email = user.email;
-        token.name = user.name;
       }
       return token;
     },
     session({ session, token }) {
+      // name/email/image Auth.js кладёт в сессию сам, вручную нужен только id.
       if (session.user) {
         session.user.id = token.id;
-        session.user.email = token.email;
-        session.user.name = token.name;
       }
       return session;
     },
