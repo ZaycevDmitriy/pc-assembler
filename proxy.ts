@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const PUBLIC_PATHS = new Set(['/', '/login', '/register']);
+const PUBLIC_PATHS = new Set(['/', '/login', '/signup']);
 
 export const isPublicPath = (pathname: string) => {
   if (PUBLIC_PATHS.has(pathname)) return true;
