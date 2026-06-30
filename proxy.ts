@@ -25,7 +25,7 @@ export const proxy = (request: NextRequest) => {
 
 export const config = {
   matcher: [
-    // Exclude API routes, static files, image optimizations, and .png files
-    '/((?!api|_next/static|_next/image|.*\\.png$).*)',
+    // Исключаем API-роуты, всю служебку Next.js (_next, включая HMR-сокет) и .png-файлы.
+    '/((?!api|_next|.*\\.png$).*)',
   ],
 };

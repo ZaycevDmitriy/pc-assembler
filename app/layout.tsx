@@ -1,8 +1,10 @@
+import { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Roboto } from 'next/font/google';
 
 import { cn } from '@/lib/utils';
 import './globals.css';
+import Header from '@/components/header';
 
 const roboto = Roboto({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -24,7 +26,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html
@@ -39,7 +41,10 @@ export default function RootLayout({
         'dark',
       )}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
